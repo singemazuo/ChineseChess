@@ -25,10 +25,11 @@ import javax.sql.rowset.CachedRowSet;
 import org.apache.commons.io.IOUtils;
 
 /**
- *
+ * the sql layer to access the data in the database
  * @author Yinbin Zuo
  */
 public class RecordRepository {
+    // the store procedure's name in the database
     private final String SPROC_GET_RECORD = "CALL uspGetRecord(?,?);";
     private final String SPROC_INSERT_RECORD = "CALL uspInsertRecord(?);";
     

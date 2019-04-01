@@ -6,8 +6,8 @@
 package chinesechess.types;
 
 /**
- *
- * @author singemazuo
+ * a interface for parameter of the database accessing layer
+ * @author Yinbin Zuo
  */
 public interface IParameter {
     
@@ -20,11 +20,21 @@ public interface IParameter {
         OUT
     }
     
+    // set value for parameter
     void setValue(Object value);
+    
+    // set direction type for parameter
     void setType(Type type);
+    
+    // set sql type for parameter
     void setSQLType(int sqlType);
     
+    // get value for parameter
     Object getValue();
+    
+    // get direction type for parameter
     Type getType();
+    
+    // set sql type for parameter
     int getSQLType();
 }

@@ -216,77 +216,87 @@ public class Demonstration extends JPanel implements ActionListener, ListSelecti
         return c;
     }
     
+    /**
+     * the action performed to apply next, replay, auto play, stop rules
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == next) {
-            index++;
-            if (index < handbooks.size()) {
-                demonstrateStep(index);
-            } else {
-                demonstrateOver("The demonstration is over.");
-            }
-        }
-        
-        if (e.getSource() == replay) {
-            panel = new ChessPanel(45, 45, 9, 10);
-            splitPanel.remove(panel);
-            splitPanel.setDividerSize(5);
-            splitPanel.setDividerLocation(280);
-            splitPanel.setRightComponent(panel);
-            splitPanel.validate();
-            index = -1;
-            text.setText(null);
-        }
-        
-        if (e.getSource() == auto) {
-            next.setEnabled(false);
-            replay.setEnabled(false);
-            try {
-                time = 1000 * Integer.parseInt(duration.getText().trim());
-            } catch (NumberFormatException ee) {
-                time = 1000;
+        try {
+            if (e.getSource() == next) {
+                index++;
+                if (index < handbooks.size()) {
+                    demonstrateStep(index);
+                } else {
+                    demonstrateOver("The demonstration is over.");
+                }
             }
 
-            if (!(thread.isAlive())) {
-                thread = new Thread(this);
+            if (e.getSource() == replay) {
                 panel = new ChessPanel(45, 45, 9, 10);
                 splitPanel.remove(panel);
                 splitPanel.setDividerSize(5);
                 splitPanel.setDividerLocation(280);
                 splitPanel.setRightComponent(panel);
                 splitPanel.validate();
+                index = -1;
                 text.setText(null);
-                thread.start();
             }
-        }
-        
-        if (e.getSource() == stop) {
-            if (e.getActionCommand().equals("Stop")) {
-                demonstrationProcessing = "Pause";
-                stop.setText("Continue");
-                stop.repaint();
+
+            if (e.getSource() == auto) {
+                next.setEnabled(false);
+                replay.setEnabled(false);
+                try {
+                    time = 1000 * Integer.parseInt(duration.getText().trim());
+                } catch (NumberFormatException ee) {
+                    time = 1000;
+                }
+
+                if (!(thread.isAlive())) {
+                    thread = new Thread(this);
+                    panel = new ChessPanel(45, 45, 9, 10);
+                    splitPanel.remove(panel);
+                    splitPanel.setDividerSize(5);
+                    splitPanel.setDividerLocation(280);
+                    splitPanel.setRightComponent(panel);
+                    splitPanel.validate();
+                    text.setText(null);
+                    thread.start();
+                }
             }
-            
-            if (e.getActionCommand().equals("Continue")) {
-                demonstrationProcessing = "Continue";
-                thread.interrupt();
-                stop.setText("Pause");
-                stop.repaint();
+
+            if (e.getSource() == stop) {
+                if (e.getActionCommand().equals("Stop")) {
+                    demonstrationProcessing = "Pause";
+                    stop.setText("Continue");
+                    stop.repaint();
+                }
+
+                if (e.getActionCommand().equals("Continue")) {
+                    demonstrationProcessing = "Continue";
+                    thread.interrupt();
+                    stop.setText("Pause");
+                    stop.repaint();
+                }
             }
-        }
-        
-        if(e.getSource() == search){
-            java.sql.Date begin = java.sql.Date.valueOf(dpBegin.getDate());
-            java.sql.Date end = java.sql.Date.valueOf(dpEnd.getDate());
-            records = ChessRecord.getInstance().GetRecords(begin, end);
-            
-            int i = 1;
-            DefaultListModel listModel = new DefaultListModel();
-            for(chinesechess.business.models.ChessRecord c: records){
-                listModel.addElement("Record "+i+" : "+c.getCreateDate());
-                i ++;
+
+            if(e.getSource() == search){
+                java.sql.Date begin = java.sql.Date.valueOf(dpBegin.getDate());
+                java.sql.Date end = java.sql.Date.valueOf(dpEnd.getDate());
+                records = ChessRecord.getInstance().GetRecords(begin, end);
+
+                int i = 1;
+                DefaultListModel listModel = new DefaultListModel();
+                if(records == null) throw new Exception("No records can be found.");
+
+                for(chinesechess.business.models.ChessRecord c: records){
+                    listModel.addElement("Record "+i+" : "+c.getCreateDate());
+                    i ++;
+                }
+                histories.setModel(listModel);
             }
-            histories.setModel(listModel);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
 

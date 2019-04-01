@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
- * @author singemazuo
+ * 
+ * @author Yinbin Zuo
  */
 public class RepositoryBase {
     /**

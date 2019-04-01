@@ -12,16 +12,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
- * @author singemazuo
+ * the data model of the chess record
+ * @author Yinbin Zuo
  */
 public class ChessRecord implements Serializable{
+    // the record Id in the data table of the database
     @Getter @Setter
     private int recordId;
     
+    // the create date of the record in the data table of the database
     @Getter @Setter
     private Date createDate;
     
+    // the record file in the data table of the database
     @Getter @Setter
     private File recordFile;
 }

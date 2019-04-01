@@ -15,18 +15,21 @@ import java.sql.Date;
 import java.util.List;
 
 /**
- *
- * @author singemazuo
+ * this class implements the record functionalities of the chessman for writing and reading from the file
+ * @author Yinbin Zuo
  */
 public class ChessRecord {
     private RecordRepository repo;
     
     private static volatile ChessRecord instance;
 
+    /**
+     * the constructor instantiates the sql layer for the record table
+     */
     private ChessRecord() {
         repo = new RecordRepository();
     }
-
+    
     public static ChessRecord getInstance() {
         if (instance == null) {
             synchronized (ChessRecord.class) {
@@ -38,19 +41,39 @@ public class ChessRecord {
         return instance;
     }
     
+    /**
+     * To read the records from the database side
+     * @param beginDate the begin date of the range
+     * @param endDate the end date of the range
+     * @return 
+     */
     public List<chinesechess.business.models.ChessRecord> GetRecords(Date beginDate,Date endDate){
         return repo.retrieveRecord(beginDate, endDate);
     }
     
-    public void InsertRecord(String path){
+    /**
+     * To insert a record including create date, file in the database
+     * @param path 
+     */
+    public void insertRecord(String path){
         repo.insertRecord(path);
     }
     
+    /**
+     * To fill byte array from a file with path
+     * @param path file path
+     * @return byte array
+     */
     private byte[] convertBytesFromFile(String path){
         byte[] buffer = null;  
-        try {  
-            File file = new File(path);  
-            FileInputStream fis = new FileInputStream(file);  
+        try {
+            // instantiate the file with path
+            File file = new File(path);
+            
+            // instantiate the file input stream with the file
+            FileInputStream fis = new FileInputStream(file);
+            
+            // instantiate the byte array output stream with 1000 size
             ByteArrayOutputStream bos = new ByteArrayOutputStream(1000);  
             byte[] b = new byte[1000];  
             int n;  

@@ -10,8 +10,8 @@ import lombok.Setter;
 import chinesechess.ChessPanel;
 
 /**
- *
- * @author singemazuo
+ * this class implement the position of the chessman
+ * @author Yinbin Zuo
  */
 public class ChessPosition {
     
@@ -25,16 +25,30 @@ public class ChessPosition {
     
     private ChessPanel panel = null;// the panel which has this position
     
+    /**
+     * this constructor obtains the location of the chessman and whether there is a chessman on the position
+     * @param x
+     * @param y
+     * @param hasChess 
+     */
     public ChessPosition(int x, int y, boolean hasChess) {
         this.x = x;
         this.y = y;	
         this.hasChess = hasChess;
     }
     
+    /**
+     * Has a chessman on the position
+     * @return 
+     */
     public boolean hasChess() {
         return this.hasChess;
     }
     
+    /**
+     * set the boolean whether there is chessman on this position
+     * @param hasChess 
+     */
     public void setHasChess(boolean hasChess){
         this.hasChess = hasChess;
     }
@@ -53,6 +67,11 @@ public class ChessPosition {
 //        panel.validate();
 //    }
     
+    /**
+     * set the chessman on the chess panel
+     * @param chessman
+     * @param panel 
+     */
     public void setChessman(Chessman chessman, ChessPanel panel) {
         this.panel = panel;
         this.chessman = chessman;
@@ -81,6 +100,11 @@ public class ChessPosition {
         panel.validate();
     }
     
+    /**
+     * remove the chess man from the chess panel
+     * @param piece
+     * @param panel 
+     */
     public void removeChessman(Chessman piece, ChessPanel panel) {
         this.panel = panel;
         this.chessman = chessman;

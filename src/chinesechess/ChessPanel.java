@@ -17,17 +17,23 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
- *
- * @author singemazuo
+ * This class implements the chess panel
+ * @author Yinbin Zuo
  */
 public class ChessPanel extends JPanel implements MouseListener, MouseMotionListener{
+    // the enumeration of the chess turn
     public enum ChessTurn{
         PlayerTurn,
         AITurn
     }
     
+    // to store the chess posistion on the panel
     public ChessPosition pos[][];
+    
+    // the width of the piece, and the height of the piece
     public int unitWidth, unitHeight;
+    
+    // the location of the horizonal and vertical line
     private int hor, ver;
     private int x, y;
     private Image img;
@@ -35,8 +41,10 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
     private boolean move = false;
     public String playerColor = "Player", aiColor = "AI";
     
+    // the variables of each chessman for player side
     public Chessman playerCar1, playerCar2, playerHorse1, playerHorse2, playerMinister1, playerMinister2, playerCommander, playerGuard1, playerGuard2, playerSoldier1, playerSoldier2, playerSoldier3, playerSoldier4, playerSoldier5, playerCannon1, playerCannon2;
     
+    // the variables of each chessman for AI side
     public Chessman aiCar1, aiCar2, aiHorse1, aiHorse2, aiMinister1, aiMinister2, aiCommander, aiGuard1, aiGuard2, aiSoldier1, aiSoldier2, aiSoldier3, aiSoldier4, aiSoldier5, aiCannon1, aiCannon2;
     
 //    private final String[][] chessmanInterface = {
@@ -47,11 +55,20 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
     public int startX, startY;
     public int startI, startJ;
 //    public boolean playerTurn = true, aiTurn = false;
+    
+    // the game rule
     public GameRule rule = null;
     public MakeChessHandbook record = null;
     
     public ChessTurn turn;
     
+    /**
+     * the constructor accept the width of the panel, the height of the panel, horizonal count and vertical count
+     * @param width
+     * @param height
+     * @param horizonal
+     * @param vertical 
+     */
     public ChessPanel(int width, int height, int horizonal, int vertical) {
         setLayout(null);
         addMouseListener(this);
@@ -88,6 +105,8 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
 //            Chessman cm = new Chessman(chessmanInterface[1][i], Color.black, bc, width - 4, height - 4, this);
 //            cm.setColorType(playerColor);
 //        }
+
+        // to generate the chessmans according to the player side
         
         playerCar1 = new Chessman("車", Color.red, bc, width - 4, height - 4, this);
         playerCar1.setColorType(playerColor);
@@ -139,6 +158,8 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         
         ////////////////////////////////////////////////////////////////////////
         
+        // to generate the chessmans according to the AI side
+        
         aiCommander = new Chessman("将", Color.black, bc, width - 4, height - 4, this);
         aiCommander.setColorType(aiColor);
         
@@ -154,10 +175,10 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         aiCar2 = new Chessman("车", Color.black, bc, width - 4, height - 4, this);
         aiCar2.setColorType(aiColor);
         
-        aiCannon1 = new Chessman("砲", Color.black, bc, width - 4, height - 4, this);
+        aiCannon1 = new Chessman("炮", Color.black, bc, width - 4, height - 4, this);
         aiCannon1.setColorType(aiColor);
         
-        aiCannon2 = new Chessman("砲", Color.black, bc, width - 4, height - 4, this);
+        aiCannon2 = new Chessman("炮", Color.black, bc, width - 4, height - 4, this);
         aiCannon2.setColorType(aiColor);
         
         aiMinister1 = new Chessman("象", Color.black, bc, width - 4, height - 4, this);
@@ -189,6 +210,7 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         
         ////////////////////////////////////////////////////////////////////////
         
+        // Initialize the those chessmans on the above on the panel
         pos[1][10].setChessman(playerCar1, this);
         pos[2][10].setChessman(playerHorse1, this);
         pos[3][10].setChessman(playerMinister1, this);
@@ -230,6 +252,10 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         pos[9][4].setChessman(aiSoldier5, this);
     }
     
+    /**
+     * Custom paint component
+     * @param g 
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
@@ -281,6 +307,10 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         
     }
 
+    /**
+     * To validate the mouse pressed event is which trigger object
+     * @param e the event context
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         Chessman chessman = null;
@@ -313,18 +343,24 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         }
     }
 
+    /**
+     * To validate the mouse released event is which trigger object
+     * @param e the event context
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         Chessman chessman = null;
         move = false;
         Rectangle rect = null;
         
+        // the event trigger is chessman
         if (e.getSource() instanceof Chessman) {
             chessman = (Chessman) e.getSource();
             rect = chessman.getBounds();
             e = SwingUtilities.convertMouseEvent(chessman, e, this);
         }
         
+        // the event trigger is chess panel
         if (e.getSource() == this) {
             boolean containChessPoint = false;
             int x = 0, y = 0;
@@ -346,17 +382,21 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
                 }
             }
             
+            // once the user release chessman, there is a chessman on this position
             if (chessman != null && containChessPoint) {
                 System.out.println("The location for the released chessman: x = "+pos[m][n].x+",y = "+pos[m][n].y);
                 Color pieceColor = chessman.getForeColor();
+                // if there is a chessman on this position
                 if (pos[m][n].hasChess()) {
                     Color c = (pos[m][n].getChessman()).getForeColor();
+                    // check the chessman color to differetiate which aspect chessman has moved
                     if (pieceColor.getRGB() == c.getRGB()) {
                         chessman.setLocation(startX, startY);
                         (pos[startI][startJ]).setHasChess(true);
                     } else {
+                        // validate the move rules for chessman
                         boolean ok = rule.movePieceRule(chessman, startI, startJ, m, n);
-                        if (ok) {
+                        if (ok) {// if it's ok processing next step
                             Chessman pieceRemoved = pos[m][n].getChessman();
                             pos[m][n].removeChessman(pieceRemoved, this);
                             pos[m][n].setChessman(chessman, this);
@@ -377,7 +417,7 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
                             }
                             validate();
                             repaint();
-                        } else {
+                        } else {// otherwise move this chessman back to the start position
                             chessman.setLocation(startX, startY);
                             (pos[startI][startJ]).setHasChess(true);
                         }
@@ -425,6 +465,10 @@ public class ChessPanel extends JPanel implements MouseListener, MouseMotionList
         
     }
 
+    /**
+     * To validate the mouse dragged event is which trigger object
+     * @param e the event context
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         Chessman chessman = null;

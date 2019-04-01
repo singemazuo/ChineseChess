@@ -18,8 +18,8 @@ import javax.swing.JTextArea;
 import lombok.Getter;
 
 /**
- *
- * @author singemazuo
+ * This class implement the chess manual making
+ * @author Yinbin Zuo
  */
 public class MakeChessHandbook extends JPanel implements ActionListener {
 
@@ -35,6 +35,11 @@ public class MakeChessHandbook extends JPanel implements ActionListener {
     private JButton buttonUndo;
     private int i = 0;
     
+    /**
+     * the constructor accept the chess panel and the chess position to the private variables
+     * @param panel Chess panel
+     * @param pos Chess position
+     */
     public MakeChessHandbook(ChessPanel panel, ChessPosition[][] pos) {
         this.panel = panel;
         this.pos = pos;
@@ -51,9 +56,14 @@ public class MakeChessHandbook extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         add(scroll, BorderLayout.CENTER);
 //        add(buttonUndo, BorderLayout.SOUTH);
-        buttonUndo.addActionListener(this);	
+//        buttonUndo.addActionListener(this);	
     }
     
+    /**
+     * To provide the letter for the demonstration chess panel 
+     * @param n
+     * @return 
+     */
     public char numberToLetter(int n) {
         char c = '\0';
         switch (n) {
@@ -91,6 +101,14 @@ public class MakeChessHandbook extends JPanel implements ActionListener {
         return c;	
     }
     
+    /**
+     * Record each step
+     * @param chessman
+     * @param startI
+     * @param startJ
+     * @param endI
+     * @param endJ 
+     */
     public void recordHandbook(Chessman chessman, int startI, int startJ, int endI, int endJ) {
         Point pStart = new Point(startI, startJ);
         Point pEnd = new Point(endI, endJ);
@@ -106,6 +124,10 @@ public class MakeChessHandbook extends JPanel implements ActionListener {
             text.append("\n");
     }
     
+    /**
+     * Record the death chessman which had been killed by enemy
+     * @param object 
+     */
     public void recordDeathChessman(Object object) {
         deaths.add(object);
     }
@@ -120,10 +142,10 @@ public class MakeChessHandbook extends JPanel implements ActionListener {
             MoveStep lastStep = (MoveStep) handbooks.getLast();
             handbooks.removeLast();
             
-            Object qizi = deaths.getLast();
+            Object piece = deaths.getLast();
             deaths.removeLast();
             
-            String temp = qizi.toString();
+            String temp = piece.toString();
             
             if (temp.equals("Not death")) {
                 int startI = lastStep.pStart.x;
@@ -148,7 +170,7 @@ public class MakeChessHandbook extends JPanel implements ActionListener {
                     panel.turn = ChessPanel.ChessTurn.PlayerTurn;
                 }
             } else {
-                Chessman removedPiece = (Chessman) qizi;
+                Chessman removedPiece = (Chessman) piece;
                 int startI = lastStep.pStart.x;
                 int startJ = lastStep.pStart.y;
                 

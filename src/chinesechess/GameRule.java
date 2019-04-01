@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 import chinesechess.ChessPanel;
 
 /**
- *
- * @author singemazuo
+ * Implement game rules of the Chinese chess
+ * @author Yinbin Zuo
  */
 public class GameRule {
     private ChessPanel panel = null;
@@ -18,14 +18,24 @@ public class GameRule {
     private ChessPosition pos[][];
     private int startI, startJ, endI, endJ;
     
+    /**
+     * the constructor accept the chess panel and chess position to save in the variables
+     * @param panel
+     * @param pos 
+     */
     public GameRule(ChessPanel panel, ChessPosition pos[][]) {
         this.panel = panel;
         this.pos = pos;
     }
     
+    /**
+     * the method set the chessman to be winner
+     * @param chessman 
+     */
     public void isWin(Chessman chessman) {
         this.chessman = chessman;
         
+        // to check the chessman is either from player aspect or from ai aspect
         if (chessman.getName() == "将" || chessman.getName() == "帅") {
             if (chessman.getColorType() == "红方") {
                 JOptionPane.showMessageDialog(null, "AI win！");
@@ -35,6 +45,15 @@ public class GameRule {
         }
     }
     
+    /**
+     * this method is a core implementation for applying the Chinese chess game rules, once the user wishes to move a chessman for eating another chessman or just for moving that would be to check
+     * @param chessman the chessman which is wished to move
+     * @param startI the begining position of the vertical 
+     * @param startJ the begining position of the horizonal
+     * @param endI the ending position of the vertical 
+     * @param endJ the ending position of the horizonal 
+     * @return 
+     */
     public boolean movePieceRule(Chessman chessman, int startI, int startJ, int endI, int endJ) {
         this.chessman = chessman;
         this.startI = startI;

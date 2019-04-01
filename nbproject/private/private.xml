@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/repository/RecordRepository.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/ChineseChess.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/dal/DataAccess.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/GameRule.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/ChessPanel.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/types/Parameter.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/business/models/ChessRecord.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/Demonstration.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/MoveStep.java</file>
-            <file>file:/Users/singemazuo/NetBeansProjects/ChineseChess/src/chinesechess/business/ChessRecord.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

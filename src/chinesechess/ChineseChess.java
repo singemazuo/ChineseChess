@@ -150,7 +150,7 @@ public class ChineseChess extends JFrame implements ActionListener{
             String path = TempDataProcess.getInstance().saveRecords(record.getHandbooks());
             
             if(confirmToSaveData && path != null){
-                ChessRecord.getInstance().InsertRecord(path);
+                ChessRecord.getInstance().insertRecord(path);
             }
 //            int state = fileChooser.showSaveDialog(null);
 //            File saveFile = fileChooser.getSelectedFile();

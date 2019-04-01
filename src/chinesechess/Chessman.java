@@ -15,29 +15,46 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
- * @author singemazuo
+ * this class implement the chessman to hosting the properties of each chess piece
+ * @author Yinbin Zuo
  */
 public class Chessman extends JLabel {
     
+    // the name of the chessman (the characters on the piece)
     @Getter
-    private String name; // the name of chessman
+    private String name;
     
+    // the background color of the chessman
     private Color backColor = null;
     
+    // the foreground color of the font for the chessman
     @Getter
-    private Color foreColor;// background color and foreground color
+    private Color foreColor;
     
+    // the color type of the chessman
     @Getter @Setter
     private String colorType = null;
+    
+    // the chess panel in this class
     private ChessPanel panel = null;
     
+    // the width of the chessman
     @Getter
     private int width;
     
+    // the height of the chessman
     @Getter
     private int height;
     
+    /**
+     * the constructor obtain the name, the foreground color of font, the background color of the piece, width, height of the chessman and the chess panel
+     * @param name
+     * @param fc
+     * @param bc
+     * @param width
+     * @param height
+     * @param panel 
+     */
     public Chessman(String name, Color fc, Color bc, int width, int height, ChessPanel panel) {
         this.name = name;
         this.panel = panel;

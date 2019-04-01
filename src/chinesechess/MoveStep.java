@@ -9,8 +9,8 @@ import java.awt.Point;
 import java.io.Serializable;
 
 /**
- *
- * @author singemazuo
+ * this class implement the move step model
+ * @author Yinbin Zuo
  */
 public class MoveStep implements Serializable {
     public Point pStart, pEnd;

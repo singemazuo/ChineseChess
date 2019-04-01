@@ -10,17 +10,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
- * @author singemazuo
+ * To define the parameter for the store procedure
+ * @author Yinbin Zuo
  */
 public class Parameter{
     
+    // the value of the parameter
     @Setter @Getter
     private Object value;
     
+    // the data type of the parameter
     @Setter @Getter
     private Type type;
     
+    // the sql data type of the parameter
     @Setter @Getter
     private int sqlType;
 

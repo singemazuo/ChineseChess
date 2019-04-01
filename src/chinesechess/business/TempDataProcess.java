@@ -31,8 +31,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 /**
- *
- * @author Yinbin
+ * This class implements the functionality for storing the data into a local temporary file
+ * @author Yinbin Zuo
  */
 public class TempDataProcess {
     private static volatile TempDataProcess instance;
@@ -50,43 +50,15 @@ public class TempDataProcess {
         return instance;
     }
     
+    /**
+     * To load records from a file with Jackson Java library
+     * @param file
+     * @return 
+     */
     public List<MoveStep> loadRecords(File file){
-//        Properties props = new Properties();
-        
         try {
             // load the file name we are using cities
-//            ClassLoader classLoader = ChineseChess.class.getClassLoader();
-//            
-//            InputStream in = classLoader.getResourceAsStream("chinesechess/properties/export.properties");
-//            props.load(in);
-//            in.close();
-//            
-//            String fileName = props.getProperty("json.tempfile");
-//            String pathToWrite = "./output";
-//            
-//            Path dir = Paths.get(pathToWrite);
-//            
-//            // check if the directory exists
-//            if(Files.notExists(dir)){
-//                Files.createDirectories(dir);
-//                out.println("The directory "+ pathToWrite + " has been created.");
-//            }else{
-//                out.println("The directory "+ pathToWrite + " is alreay exists.");
-//                
-//                out.println("Directory: "+dir.toAbsolutePath());
-//                out.println("Files: ");
-//                DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir);
-//                
-//                for (Path p : dirStream) {
-//                    if(Files.isRegularFile(p)){
-//                        out.println(" "+p.getFileName());
-//                    }
-//                }
-//            }
-//            
-//            Path recordsFilePath = Paths.get(pathToWrite, fileName);
-//            File recordsFile = recordsFilePath.toFile();
-            
+
             ObjectMapper mapper = new ObjectMapper();
             MoveStep[] records = mapper.readValue(file, MoveStep[].class);
             return Arrays.asList(records);
@@ -96,6 +68,10 @@ public class TempDataProcess {
         }
     }
     
+    /**
+     * To load all of the records from local virtual folder
+     * @return 
+     */
     public List<MoveStep> loadRecords(){
         Properties props = new Properties();
         
@@ -142,6 +118,11 @@ public class TempDataProcess {
         }
     }
     
+    /**
+     * To save the records from a list of move step 
+     * @param theRecord
+     * @return 
+     */
     public String saveRecords(List<MoveStep> theRecord){
         Properties props = new Properties();
         
